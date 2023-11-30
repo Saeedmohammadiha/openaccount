@@ -1,4 +1,10 @@
 * {
   margin: 0;
   box-sizing: border-box;
+  font-family: vazir;
+}
+
+@font-face {
+  font-family: vazir;
+  src: url(../public/font/Vazir.woff) format(woff);
 }
