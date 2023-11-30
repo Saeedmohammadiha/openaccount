@@ -4,11 +4,14 @@ import {
   MenuItem,
   TextField,
   makeStyles,
+  useMediaQuery,
 } from "@material-ui/core";
 import { Controller, useForm } from "react-hook-form";
 import { DatePicker } from "zaman";
-import { theme } from "../theme";
+import { getTheme } from "../theme";
 import ChangeLanguage from "../i18n/ChangeButton";
+import { useState } from "react";
+import Sheet from "react-modal-sheet";
 
 const accountTypeList = [
   { value: 0, title: "حساب قرض الحسنه" },
@@ -16,6 +19,8 @@ const accountTypeList = [
   { value: 2, title: "سپرده کوتاه مدت طرح احسان - نیم درصد" },
   { value: 3, title: "سپرده کوتاه مدت طرح احسان - صفر درصد" },
 ];
+
+const theme = getTheme();
 
 const useStyles = makeStyles({
   container: {
@@ -37,12 +42,17 @@ const useStyles = makeStyles({
 });
 
 export default function BasicInfo() {
+  const [isOpen, setOpen] = useState(false);
+  const [accountTypeValue, setAccountTypeValue] = useState("حساب قرض الحسنه");
+  const matches = useMediaQuery((theme) => theme.breakpoints.down("md"));
+
   const classes = useStyles();
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
 
   const onSubmit = (data) => {
@@ -52,32 +62,72 @@ export default function BasicInfo() {
 
   return (
     <Grid className={classes.container}>
-      <ChangeLanguage />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container direction="column" spacing={5}>
           <Grid item>
-            <TextField
-              className={classes.input}
-              fullWidth
-              defaultValue={0}
-              select
-              name="accoutType"
-              variant="outlined"
-              label="نوع حساب"
-              error={!!errors?.accoutType}
-              helperText={errors?.accoutType ? errors?.accoutType?.message : ""}
-              {...register("accoutType", {
-                required: "لطفا نوع حساب را انتخاب کنید.",
-              })}
-            >
-              {accountTypeList?.map((item) => {
-                return (
-                  <MenuItem key={item.value} value={item.value}>
-                    {item.title}
-                  </MenuItem>
-                );
-              })}
-            </TextField>
+            {matches ? (
+              <>
+                {" "}
+                <TextField
+                  onClick={() => setOpen(true)}
+                  className={classes.input}
+                  fullWidth
+                  value={accountTypeValue}
+                  name="accoutType"
+                  variant="outlined"
+                  label="نوع حساب"
+                  {...register("accoutType")}
+                />
+                <Sheet isOpen={isOpen} onClose={() => setOpen(false)}>
+                  <Sheet.Container>
+                    <Sheet.Header />
+                    <Sheet.Content>
+                      {accountTypeList?.map((item) => {
+                        return (
+                          <MenuItem
+                            onClick={(e) => {
+                              setAccountTypeValue(item.title);
+                              setValue("accoutType  ", item.title);
+                              setOpen(false);
+                            }}
+                            key={item.value}
+                            value={item.value}
+                          >
+                            {item.title}
+                          </MenuItem>
+                        );
+                      })}
+                    </Sheet.Content>
+                  </Sheet.Container>
+                  <Sheet.Backdrop />
+                </Sheet>{" "}
+              </>
+            ) : (
+              <TextField
+                className={classes.input}
+                fullWidth
+                defaultValue={0}
+                select
+                name="accoutType"
+                variant="outlined"
+                label="نوع حساب"
+                error={!!errors?.accoutType}
+                helperText={
+                  errors?.accoutType ? errors?.accoutType?.message : ""
+                }
+                {...register("accoutType", {
+                  required: "لطفا نوع حساب را انتخاب کنید.",
+                })}
+              >
+                {accountTypeList?.map((item) => {
+                  return (
+                    <MenuItem key={item.value} value={item.value}>
+                      {item.title}
+                    </MenuItem>
+                  );
+                })}
+              </TextField>
+            )}
           </Grid>
           <Grid item>
             <TextField
@@ -146,7 +196,7 @@ export default function BasicInfo() {
                     placeholder: "تاریخ تولد",
                   }}
                   position="center"
-                  show
+                  show={false}
                 />
               )}
             />
