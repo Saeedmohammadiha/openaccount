@@ -5,13 +5,14 @@ import {
   TextField,
   makeStyles,
   useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 import { Controller, useForm } from "react-hook-form";
 import { DatePicker } from "zaman";
-import { getTheme } from "../theme";
 import ChangeLanguage from "../i18n/ChangeButton";
 import { useState } from "react";
 import Sheet from "react-modal-sheet";
+import { color } from "framer-motion";
 
 const accountTypeList = [
   { value: 0, title: "حساب قرض الحسنه" },
@@ -20,31 +21,33 @@ const accountTypeList = [
   { value: 3, title: "سپرده کوتاه مدت طرح احسان - صفر درصد" },
 ];
 
-const theme = getTheme();
-
-const useStyles = makeStyles({
-  container: {
-    margin: theme.spacing(5),
-  },
-  input: {
-    height: theme.spacing(7),
-  },
-  datePicker: {
-    width: " 100%",
-    height: " 60px",
-    fontSize: " 1.2rem",
-    padding: " 10px",
-    outline: " none",
-    border: " 1px solid gray",
-    boxSizing: " border-box",
-    borderRadius: " 5px",
-  },
-});
-
 export default function BasicInfo() {
+  const theme = useTheme();
   const [isOpen, setOpen] = useState(false);
   const [accountTypeValue, setAccountTypeValue] = useState("حساب قرض الحسنه");
   const matches = useMediaQuery((theme) => theme.breakpoints.down("md"));
+
+  const useStyles = makeStyles({
+    container: {
+      margin: theme.spacing(5),
+    },
+    input: {
+      height: theme.spacing(7),
+    },
+    datePicker: {
+      width: " 100%",
+      height: " 60px",
+      fontSize: " 1.2rem",
+      padding: " 10px",
+      outline: " none",
+      border: " 1px solid gray",
+      boxSizing: " border-box",
+      borderRadius: " 5px",
+      backgroundColor: theme.palette.background.default,
+      color: theme.palette.type === 'dark' && theme.palette.common.white
+    },
+   
+  });
 
   const classes = useStyles();
   const {
@@ -59,6 +62,7 @@ export default function BasicInfo() {
     console.log(data);
     console.log("err", errors);
   };
+
 
   return (
     <Grid className={classes.container}>
@@ -79,7 +83,11 @@ export default function BasicInfo() {
                   {...register("accoutType")}
                 />
                 <Sheet isOpen={isOpen} onClose={() => setOpen(false)}>
-                  <Sheet.Container>
+                  <Sheet.Container
+                    style={{
+                      backgroundColor: theme.palette.background.default
+                    }}
+                  >
                     <Sheet.Header />
                     <Sheet.Content>
                       {accountTypeList?.map((item) => {
