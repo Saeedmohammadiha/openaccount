@@ -1,11 +1,20 @@
 import { Route, Routes } from "react-router";
-import "./App.css";
-import BasicInfo from "./pages/BasicInfo";
+import { Suspense, lazy, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { Button, CssBaseline, Grid, ThemeProvider } from "@material-ui/core";
+import {
+  Button,
+  CircularProgress,
+  CssBaseline,
+  Grid,
+  ThemeProvider,
+} from "@material-ui/core";
+
 import ChangeLanguage from "./i18n/ChangeButton";
 import { lightTheme, darkTheme } from "./theme";
-import { useState } from "react";
+import "./App.css";
+import Loading from "./components/Loading";
+
+const BasicInfo = lazy(() => import("./pages/BasicInfo"));
 
 function App() {
   const [themeMode, setThemeMode] = useState("light");
@@ -32,7 +41,14 @@ function App() {
       </Grid>
       <BrowserRouter>
         <Routes>
-          <Route path="/BasicInfo" element={<BasicInfo />} />
+          <Route
+            path="/BasicInfo"
+            element={
+              <Suspense fallback={<Loading />}>
+                <BasicInfo />
+              </Suspense>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
