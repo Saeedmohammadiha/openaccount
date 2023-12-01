@@ -13,6 +13,7 @@ import ChangeLanguage from "./i18n/ChangeButton";
 import { lightTheme, darkTheme } from "./theme";
 import "./App.css";
 import Loading from "./components/Loading";
+import ConfirmMobile from "./pages/ConfirmMobile";
 
 const BasicInfo = lazy(() => import("./pages/BasicInfo"));
 
@@ -39,18 +40,14 @@ function App() {
           <span>ct</span>
         </Button>
       </Grid>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/BasicInfo"
-            element={
-              <Suspense fallback={<Loading />}>
-                <BasicInfo />
-              </Suspense>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
+      <Suspense fallback={<Loading />}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/BasicInfo" element={<BasicInfo />} />
+            <Route path="/confirmMobile" element={<ConfirmMobile />} />
+          </Routes>
+        </BrowserRouter>
+      </Suspense>
     </ThemeProvider>
   );
 }

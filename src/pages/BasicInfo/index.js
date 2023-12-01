@@ -5,8 +5,10 @@ import { validate } from "../../utils/rules";
 import AccountTypeSelect from "../../components/AccountTypeSelect";
 import { useStyles } from "./styles";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 
 export default function BasicInfo() {
+  const navigate = useNavigate()
   const classes = useStyles();
   const {t} = useTranslation()
   const {
@@ -20,6 +22,7 @@ export default function BasicInfo() {
   const onSubmit = (data) => {
     console.log(data);
     console.log("err", errors);
+    navigate("/confirmMobile")
   };
 
   return (
