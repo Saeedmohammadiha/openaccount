@@ -8,12 +8,14 @@ import {
 import { useState } from "react";
 import Sheet from "react-modal-sheet";
 import { accountTypeList } from "../utils/accountTypeList";
+import { useTranslation } from "react-i18next";
 
 export default function AccountTypeSelect({ register, setValue }) {
   const [isOpen, setOpen] = useState(false);
   const [accountTypeValue, setAccountTypeValue] = useState("حساب قرض الحسنه");
   const matches = useMediaQuery((theme) => theme.breakpoints.down("md"));
   const theme = useTheme();
+  const { t } = useTranslation();
 
   return (
     <Grid item>
@@ -26,7 +28,7 @@ export default function AccountTypeSelect({ register, setValue }) {
             value={accountTypeValue}
             name="accoutType"
             variant="outlined"
-            label="نوع حساب"
+            label={t("accoutType")}
             {...register("accoutType")}
           />
           <Sheet isOpen={isOpen} onClose={() => setOpen(false)}>
@@ -65,7 +67,7 @@ export default function AccountTypeSelect({ register, setValue }) {
           select
           name="accoutType"
           variant="outlined"
-          label="نوع حساب"
+          label={t("accoutType")}
           {...register("accoutType")}
         >
           {accountTypeList?.map((item) => {

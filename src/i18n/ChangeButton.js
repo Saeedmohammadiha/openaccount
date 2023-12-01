@@ -8,7 +8,7 @@ const ChangeLanguage = () => {
   const changeLanguage = () => {
     const currentLanguage = i18n.language;
     theme.direction = i18n.dir();
-    document.body.dir = i18n.dir();
+   // document.body.dir = i18n.dir();
 
     if (currentLanguage === "en") {
       i18n.changeLanguage("fa", (err, t) => {

@@ -4,9 +4,11 @@ import { DatePicker } from "zaman";
 import { validate } from "../../utils/rules";
 import AccountTypeSelect from "../../components/AccountTypeSelect";
 import { useStyles } from "./styles";
+import { useTranslation } from "react-i18next";
 
 export default function BasicInfo() {
   const classes = useStyles();
+  const {t} = useTranslation()
   const {
     control,
     register,
@@ -31,7 +33,7 @@ export default function BasicInfo() {
               className={classes.input}
               name="mobileNumber"
               variant="outlined"
-              label="تلفن همراه"
+              label={t('mobileNumber')}
               error={!!errors?.mobileNumber}
               helperText={
                 errors?.mobileNumber ? errors?.mobileNumber?.message : ""
@@ -45,7 +47,7 @@ export default function BasicInfo() {
               className={classes.input}
               name="nationalId"
               variant="outlined"
-              label="کد ملی"
+              label={t('nationalId')}
               error={!!errors?.nationalId}
               helperText={errors?.nationalId ? errors?.nationalId?.message : ""}
               {...register("nationalId", validate.nationalId)}
@@ -57,7 +59,7 @@ export default function BasicInfo() {
               className={classes.input}
               name="cartSerial"
               variant="outlined"
-              label="سریال کارت ملی"
+              label={t('cartSerial')}
               error={!!errors?.cartSerial}
               helperText={errors?.cartSerial ? errors?.cartSerial?.message : ""}
               {...register("cartSerial", validate.cartSerial)}
@@ -82,13 +84,13 @@ export default function BasicInfo() {
                         field.onChange(d.value);
                       }}
                       inputAttributes={{
-                        placeholder: "تاریخ تولد",
+                        placeholder: t("birthdate"),
                       }}
                       position="center"
                     />
                     {fieldState?.error && (
                       <p class="MuiFormHelperText-root MuiFormHelperText-contained Mui-error">
-                        لطفا تاریخ تولد را وارد کنید.
+                        {t('dateErrorTxt')}
                       </p>
                     )}
                   </>
@@ -98,7 +100,7 @@ export default function BasicInfo() {
           </Grid>
           <Grid item>
             <Button fullWidth variant="contained" color="primary" type="submit">
-              بررسی
+              {t('check')}
             </Button>
           </Grid>
         </Grid>
