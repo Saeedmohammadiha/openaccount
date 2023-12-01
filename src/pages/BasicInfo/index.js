@@ -69,8 +69,6 @@ export default function BasicInfo() {
               name="birthdate"
               rules={{ required: "Birthdate is required" }}
               render={({ field, fieldState }) => {
-                console.log(field);
-                console.log(fieldState);
                 return (
                   <>
                     <DatePicker
