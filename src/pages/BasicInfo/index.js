@@ -8,9 +8,9 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
 export default function BasicInfo() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const classes = useStyles();
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   const {
     control,
     register,
@@ -22,7 +22,7 @@ export default function BasicInfo() {
   const onSubmit = (data) => {
     console.log(data);
     console.log("err", errors);
-    navigate("/confirmMobile")
+    navigate("/confirmMobile");
   };
 
   return (
@@ -36,7 +36,7 @@ export default function BasicInfo() {
               className={classes.input}
               name="mobileNumber"
               variant="outlined"
-              label={t('mobileNumber')}
+              label={t("mobileNumber")}
               error={!!errors?.mobileNumber}
               helperText={
                 errors?.mobileNumber ? errors?.mobileNumber?.message : ""
@@ -50,7 +50,7 @@ export default function BasicInfo() {
               className={classes.input}
               name="nationalId"
               variant="outlined"
-              label={t('nationalId')}
+              label={t("nationalId")}
               error={!!errors?.nationalId}
               helperText={errors?.nationalId ? errors?.nationalId?.message : ""}
               {...register("nationalId", validate.nationalId)}
@@ -62,7 +62,7 @@ export default function BasicInfo() {
               className={classes.input}
               name="cartSerial"
               variant="outlined"
-              label={t('cartSerial')}
+              label={t("cartSerial")}
               error={!!errors?.cartSerial}
               helperText={errors?.cartSerial ? errors?.cartSerial?.message : ""}
               {...register("cartSerial", validate.cartSerial)}
@@ -93,7 +93,7 @@ export default function BasicInfo() {
                     />
                     {fieldState?.error && (
                       <p class="MuiFormHelperText-root MuiFormHelperText-contained Mui-error">
-                        {t('dateErrorTxt')}
+                        {t("dateErrorTxt")}
                       </p>
                     )}
                   </>
@@ -103,7 +103,7 @@ export default function BasicInfo() {
           </Grid>
           <Grid item>
             <Button fullWidth variant="contained" color="primary" type="submit">
-              {t('check')}
+              {t("check")}
             </Button>
           </Grid>
         </Grid>
