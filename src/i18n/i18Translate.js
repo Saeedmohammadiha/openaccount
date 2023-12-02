@@ -8,7 +8,8 @@ const resources = {
       birthdate: "Birthdate",
       dateErrorTxt: "Please inter the Birthdate.",
       check: "Check",
-      password: 'password'
+      password: "password",
+      sendAgain: "Send Again",
     },
   },
   fa: {
@@ -20,7 +21,8 @@ const resources = {
       birthdate: "تاریخ تولد",
       dateErrorTxt: "لطفا تاریخ تولد را وارد کنید.",
       check: "بررسی",
-      password: 'رمز'
+      password: "رمز",
+      sendAgain: "ارسال مجدد",
     },
   },
 };

@@ -3,10 +3,10 @@ import { Suspense, lazy, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import {
   Button,
-  CircularProgress,
   CssBaseline,
   Grid,
   ThemeProvider,
+  useTheme,
 } from "@material-ui/core";
 
 import ChangeLanguage from "./i18n/ChangeButton";
@@ -19,7 +19,8 @@ const BasicInfo = lazy(() => import("./pages/BasicInfo"));
 
 function App() {
   const [themeMode, setThemeMode] = useState("light");
-
+  const theme = useTheme();
+  
   return (
     <ThemeProvider theme={themeMode === "dark" ? darkTheme : lightTheme}>
       <CssBaseline />
@@ -41,12 +42,14 @@ function App() {
         </Button>
       </Grid>
       <Suspense fallback={<Loading />}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/BasicInfo" element={<BasicInfo />} />
-            <Route path="/confirmMobile" element={<ConfirmMobile />} />
-          </Routes>
-        </BrowserRouter>
+        <Grid style={{ margin: theme.spacing(5) }}>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/BasicInfo" element={<BasicInfo />} />
+              <Route path="/confirmMobile" element={<ConfirmMobile />} />
+            </Routes>
+          </BrowserRouter>
+        </Grid>
       </Suspense>
     </ThemeProvider>
   );

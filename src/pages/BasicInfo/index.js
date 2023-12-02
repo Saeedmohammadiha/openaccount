@@ -26,7 +26,7 @@ export default function BasicInfo() {
   };
 
   return (
-    <Grid className={classes.container}>
+   
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container direction="column" spacing={5}>
           <AccountTypeSelect register={register} setValue={setValue} />
@@ -108,6 +108,5 @@ export default function BasicInfo() {
           </Grid>
         </Grid>
       </form>
-    </Grid>
   );
 }

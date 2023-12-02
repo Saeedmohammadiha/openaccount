@@ -16,4 +16,7 @@ export const validate = {
   cartSerial: {
     required: "لطفا سریال کارت ملی را وارد کنید.",
   },
+  confirmMobile: {
+    required: "لطفا رمز را وارد کنید.",
+  },
 };
