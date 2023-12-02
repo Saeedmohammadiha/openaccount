@@ -33,8 +33,8 @@ export default function ConfirmMobile() {
 
     try {
       const res = await VerificationOTP(body);
-      console.log(res);
-      navigate("");
+      localStorage.setItem('token', JSON.stringify(res))
+      navigate("/obligation");
     } catch (error) {
       console.log(error);
     }

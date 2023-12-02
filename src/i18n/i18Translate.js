@@ -10,6 +10,7 @@ const resources = {
       check: "Check",
       password: "password",
       sendAgain: "Send Again",
+      approveObligation: 'I accept the obligation.'
     },
   },
   fa: {
@@ -23,6 +24,7 @@ const resources = {
       check: "بررسی",
       password: "رمز",
       sendAgain: "ارسال مجدد",
+      approveObligation: "شرایط توافق نامه را میپذیرم."
     },
   },
 };

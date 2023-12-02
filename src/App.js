@@ -16,6 +16,7 @@ import Loading from "./components/Loading";
 
 const BasicInfo = lazy(() => import("./pages/BasicInfo"));
 const ConfirmMobile = lazy(() => import("./pages/ConfirmMobile"));
+const Obligation = lazy(() => import("./pages/Obligation"));
 
 function App() {
   const [themeMode, setThemeMode] = useState("light");
@@ -47,6 +48,7 @@ function App() {
             <Routes>
               <Route path="/BasicInfo" element={<BasicInfo />} />
               <Route path="/confirmMobile" element={<ConfirmMobile />} />
+              <Route path="/Obligation" element={<Obligation />} />
             </Routes>
           </BrowserRouter>
         </Grid>
