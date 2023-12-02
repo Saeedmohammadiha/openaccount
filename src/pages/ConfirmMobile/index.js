@@ -7,11 +7,10 @@ import Countdown from "react-countdown";
 import { VerificationOTP, createAuthRequest } from "../../endpoints";
 import { useNavigate } from "react-router";
 
-
 export default function ConfirmMobile() {
   const [isCounting, setIsCounting] = useState(true);
   const { t } = useTranslation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -35,7 +34,7 @@ export default function ConfirmMobile() {
     try {
       const res = await VerificationOTP(body);
       console.log(res);
-       navigate("");
+      navigate("");
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +44,6 @@ export default function ConfirmMobile() {
   const handleCountdownComplete = () => {
     setIsCounting(false);
   };
-
 
   const handleSendAgain = async () => {
     await createAuthRequest(userData);
