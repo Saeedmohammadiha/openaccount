@@ -6,3 +6,8 @@ export const getAccountType = async () => {
   });
   return res;
 };
+
+export const createAuthRequest = async (data) => {
+  const res = await axiosInstance.post("/api/BancsLink/CreateAuthRequest", data);
+  return res;
+};

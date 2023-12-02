@@ -6,7 +6,8 @@ import AccountTypeSelect from "../../components/AccountTypeSelect";
 import { useStyles } from "./styles";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-
+import { createAuthRequest } from "../../endpoints";
+import moment from "jalali-moment";
 
 export default function BasicInfo() {
   const navigate = useNavigate();
@@ -20,95 +21,117 @@ export default function BasicInfo() {
     setValue,
   } = useForm();
 
-console.log(process.env);
-  const onSubmit = (data) => {
-    console.log(data);
-    console.log("err", errors);
-    navigate("/confirmMobile");
+  const onSubmit = async (data) => {
+    const { mobileNumber, nationalId, cartSerial, accountType, birthdate } =
+      data;
+
+    const jalaliBirtDate = moment(birthdate).format("jYYYY/jMM/jDD");
+
+    const body = {
+      nationalCode: nationalId,
+      mobile: mobileNumber,
+      nationalCodeSerial: cartSerial,
+      birthDate: jalaliBirtDate,
+      accountTypeId: accountType,
+      requestTypeId: "1",
+    };
+    try {
+      const res = await createAuthRequest(body);
+      localStorage.setItem(
+        "data",
+        JSON.stringify({
+          nationalCode: nationalId,
+          mobile: mobileNumber,
+          x: res,
+        })
+      );
+      navigate("/confirmMobile");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
-   
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid container direction="column" spacing={5}>
-          <AccountTypeSelect register={register} setValue={setValue} />
-          <Grid item>
-            <TextField
-              fullWidth
-              className={classes.input}
-              name="mobileNumber"
-              variant="outlined"
-              label={t("mobileNumber")}
-              error={!!errors?.mobileNumber}
-              helperText={
-                errors?.mobileNumber ? errors?.mobileNumber?.message : ""
-              }
-              {...register("mobileNumber", validate.mobileNumber)}
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-              fullWidth
-              className={classes.input}
-              name="nationalId"
-              variant="outlined"
-              label={t("nationalId")}
-              error={!!errors?.nationalId}
-              helperText={errors?.nationalId ? errors?.nationalId?.message : ""}
-              {...register("nationalId", validate.nationalId)}
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-              fullWidth
-              className={classes.input}
-              name="cartSerial"
-              variant="outlined"
-              label={t("cartSerial")}
-              error={!!errors?.cartSerial}
-              helperText={errors?.cartSerial ? errors?.cartSerial?.message : ""}
-              {...register("cartSerial", validate.cartSerial)}
-            />
-          </Grid>
-          <Grid item>
-            <Controller
-              control={control}
-              name="birthdate"
-              rules={{ required: "Birthdate is required" }}
-              render={({ field, fieldState }) => {
-                return (
-                  <>
-                    <DatePicker
-                      inputClass={
-                        fieldState.error
-                          ? classes.datePickerError
-                          : classes.datePicker
-                      }
-                      round="x4"
-                      onChange={(d) => {
-                        field.onChange(d.value);
-                      }}
-                      inputAttributes={{
-                        placeholder: t("birthdate"),
-                      }}
-                      position="center"
-                    />
-                    {fieldState?.error && (
-                      <p class="MuiFormHelperText-root MuiFormHelperText-contained Mui-error">
-                        {t("dateErrorTxt")}
-                      </p>
-                    )}
-                  </>
-                );
-              }}
-            />
-          </Grid>
-          <Grid item>
-            <Button fullWidth variant="contained" color="primary" type="submit">
-              {t("check")}
-            </Button>
-          </Grid>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Grid container direction="column" spacing={5}>
+        <AccountTypeSelect register={register} setValue={setValue} />
+        <Grid item>
+          <TextField
+            fullWidth
+            className={classes.input}
+            name="mobileNumber"
+            variant="outlined"
+            label={t("mobileNumber")}
+            error={!!errors?.mobileNumber}
+            helperText={
+              errors?.mobileNumber ? errors?.mobileNumber?.message : ""
+            }
+            {...register("mobileNumber", validate.mobileNumber)}
+          />
         </Grid>
-      </form>
+        <Grid item>
+          <TextField
+            fullWidth
+            className={classes.input}
+            name="nationalId"
+            variant="outlined"
+            label={t("nationalId")}
+            error={!!errors?.nationalId}
+            helperText={errors?.nationalId ? errors?.nationalId?.message : ""}
+            {...register("nationalId", validate.nationalId)}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            fullWidth
+            className={classes.input}
+            name="cartSerial"
+            variant="outlined"
+            label={t("cartSerial")}
+            error={!!errors?.cartSerial}
+            helperText={errors?.cartSerial ? errors?.cartSerial?.message : ""}
+            {...register("cartSerial", validate.cartSerial)}
+          />
+        </Grid>
+        <Grid item>
+          <Controller
+            control={control}
+            name="birthdate"
+            rules={{ required: "Birthdate is required" }}
+            render={({ field, fieldState }) => {
+              return (
+                <>
+                  <DatePicker
+                    inputClass={
+                      fieldState.error
+                        ? classes.datePickerError
+                        : classes.datePicker
+                    }
+                    round="x4"
+                    onChange={(d) => {
+                      field.onChange(d.value);
+                    }}
+                    inputAttributes={{
+                      placeholder: t("birthdate"),
+                    }}
+                    position="center"
+                  />
+                  {fieldState?.error && (
+                    <p class="MuiFormHelperText-root MuiFormHelperText-contained Mui-error">
+                      {t("dateErrorTxt")}
+                    </p>
+                  )}
+                </>
+              );
+            }}
+          />
+        </Grid>
+        <Grid item>
+          <Button fullWidth variant="contained" color="primary" type="submit">
+            {t("check")}
+          </Button>
+        </Grid>
+      </Grid>
+    </form>
   );
 }
