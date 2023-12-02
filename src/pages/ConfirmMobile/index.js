@@ -1,4 +1,4 @@
-import { Button, Grid, TextField } from "@material-ui/core";
+import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { validate } from "../../utils/rules";
@@ -39,6 +39,12 @@ export default function ConfirmMobile() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction="column" spacing={2}>
+        <Grid item>
+          <Typography>
+            کد فعالسازی به شماره 09000000000 ارسال شده است، لطفا پس از دریافت،
+            آن را در کادر پایین وارد نمایید.
+          </Typography>
+        </Grid>
         <Grid item>
           <TextField
             fullWidth
