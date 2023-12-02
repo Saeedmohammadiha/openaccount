@@ -33,10 +33,10 @@ export default function AccountTypeSelect({ register, setValue }) {
             style={{ height: theme.spacing(7) }}
             fullWidth
             value={accountTypeValue}
-            name="accoutType"
+            name="accountType"
             variant="outlined"
-            label={t("accoutType")}
-            {...register("accoutType")}
+            label={t("accountType")}
+            {...register("accountType")}
           />
           <Sheet isOpen={isOpen} onClose={() => setOpen(false)}>
             <Sheet.Container
@@ -51,7 +51,7 @@ export default function AccountTypeSelect({ register, setValue }) {
                     <MenuItem
                       onClick={(e) => {
                         setAccountTypeValue(item.title);
-                        setValue("accoutType  ", item.title);
+                        setValue("accountType", item.id);
                         setOpen(false);
                       }}
                       key={item.id}
@@ -70,12 +70,12 @@ export default function AccountTypeSelect({ register, setValue }) {
         <TextField
           style={{ height: theme.spacing(7) }}
           fullWidth
-          defaultValue={0}
+          defaultValue={1}
           select
-          name="accoutType"
+          name="accountType"
           variant="outlined"
-          label={t("accoutType")}
-          {...register("accoutType")}
+          label={t("accountType")}
+          {...register("accountType")}
         >
           {accountList?.map((item) => {
             return (

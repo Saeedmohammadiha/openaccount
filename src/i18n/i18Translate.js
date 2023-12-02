@@ -1,7 +1,7 @@
 const resources = {
   en: {
     translation: {
-      accoutType: "Accout Type",
+      accountType: "Account Type",
       mobileNumber: "Mobile Number",
       nationalId: "National Id",
       cartSerial: "National Cart Serial Number",
@@ -14,7 +14,7 @@ const resources = {
   },
   fa: {
     translation: {
-      accoutType: "نوع حساب",
+      accountType: "نوع حساب",
       mobileNumber: "تلفن همراه",
       nationalId: "کد ملی",
       cartSerial: "سریال کارت ملی",
