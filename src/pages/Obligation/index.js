@@ -42,7 +42,10 @@ export default function Obligation() {
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item>
-        <Paper style={{ height: "70vh", overflow: "auto" }} variant="outlined">
+        <Paper
+          style={{ height: "70vh", overflow: "auto", borderColor: green[900] }}
+          variant="outlined"
+        >
           {obligation}
         </Paper>
       </Grid>
