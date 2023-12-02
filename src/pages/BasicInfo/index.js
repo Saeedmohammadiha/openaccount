@@ -7,6 +7,7 @@ import { useStyles } from "./styles";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
+
 export default function BasicInfo() {
   const navigate = useNavigate();
   const classes = useStyles();
@@ -19,6 +20,7 @@ export default function BasicInfo() {
     setValue,
   } = useForm();
 
+console.log(process.env);
   const onSubmit = (data) => {
     console.log(data);
     console.log("err", errors);
