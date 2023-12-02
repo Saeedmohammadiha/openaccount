@@ -2,21 +2,43 @@ import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { validate } from "../../utils/rules";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Countdown from "react-countdown";
+import { VerificationOTP, createAuthRequest } from "../../endpoints";
+import { useNavigate } from "react-router";
+
 
 export default function ConfirmMobile() {
   const [isCounting, setIsCounting] = useState(true);
   const { t } = useTranslation();
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [userData, setUserData] = useState(null);
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // navigate("");
+  useEffect(() => {
+    setUserData(JSON.parse(localStorage.getItem("userData")));
+  }, []);
+
+  const onSubmit = async (data) => {
+    const { password } = data;
+
+    const body = {
+      nationalCode: userData?.nationalCode,
+      mobile: userData?.mobile,
+      verifyCode: password,
+    };
+
+    try {
+      const res = await VerificationOTP(body);
+      console.log(res);
+       navigate("");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Function to handle the countdown completion
@@ -24,8 +46,9 @@ export default function ConfirmMobile() {
     setIsCounting(false);
   };
 
-  // Function to start the countdown
-  const handleSendAgain = () => {
+
+  const handleSendAgain = async () => {
+    await createAuthRequest(userData);
     setIsCounting(true);
   };
 
@@ -41,8 +64,8 @@ export default function ConfirmMobile() {
       <Grid container direction="column" spacing={2}>
         <Grid item>
           <Typography>
-            کد فعالسازی به شماره 09000000000 ارسال شده است، لطفا پس از دریافت،
-            آن را در کادر پایین وارد نمایید.
+            کد فعالسازی به شماره <span>{userData?.mobile}</span> ارسال شده است،
+            لطفا پس از دریافت، آن را در کادر پایین وارد نمایید.
           </Typography>
         </Grid>
         <Grid item>

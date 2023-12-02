@@ -11,3 +11,8 @@ export const createAuthRequest = async (data) => {
   const res = await axiosInstance.post("/api/BancsLink/CreateAuthRequest", data);
   return res;
 };
+
+export const VerificationOTP = async (data) => {
+  const res = await axiosInstance.post("/api/BancsLink/VerificationOTP", data);
+  return res;
+};

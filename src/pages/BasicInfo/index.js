@@ -36,15 +36,8 @@ export default function BasicInfo() {
       requestTypeId: "1",
     };
     try {
-      const res = await createAuthRequest(body);
-      localStorage.setItem(
-        "data",
-        JSON.stringify({
-          nationalCode: nationalId,
-          mobile: mobileNumber,
-          x: res,
-        })
-      );
+      await createAuthRequest(body);
+      localStorage.setItem("userData", JSON.stringify(body));
       navigate("/confirmMobile");
     } catch (err) {
       console.log(err);
