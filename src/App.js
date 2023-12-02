@@ -13,14 +13,14 @@ import ChangeLanguage from "./i18n/ChangeButton";
 import { lightTheme, darkTheme } from "./theme";
 import "./App.css";
 import Loading from "./components/Loading";
-import ConfirmMobile from "./pages/ConfirmMobile";
 
 const BasicInfo = lazy(() => import("./pages/BasicInfo"));
+const ConfirmMobile = lazy(() => import("./pages/ConfirmMobile"));
 
 function App() {
   const [themeMode, setThemeMode] = useState("light");
   const theme = useTheme();
-  
+
   return (
     <ThemeProvider theme={themeMode === "dark" ? darkTheme : lightTheme}>
       <CssBaseline />
