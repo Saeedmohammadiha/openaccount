@@ -19,4 +19,5 @@ export const validate = {
   confirmMobile: {
     required: "لطفا رمز را وارد کنید.",
   },
+  birthdate: { required: "لطفا تاریخ تولد را وارد کنید." },
 };

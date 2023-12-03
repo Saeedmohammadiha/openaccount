@@ -18,7 +18,7 @@ const BasicInfo = lazy(() => import("./pages/BasicInfo"));
 const ConfirmMobile = lazy(() => import("./pages/ConfirmMobile"));
 const Obligation = lazy(() => import("./pages/Obligation"));
 
-function App() {
+const App: React.FC = () => {
   const [themeMode, setThemeMode] = useState("light");
   const theme = useTheme();
 
@@ -55,6 +55,6 @@ function App() {
       </Suspense>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

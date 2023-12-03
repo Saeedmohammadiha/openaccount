@@ -1,6 +1,7 @@
 import {
   Button,
   Checkbox,
+  CheckboxProps,
   FormControlLabel,
   Grid,
   Paper,
@@ -17,11 +18,15 @@ export default function Obligation() {
   const navigate = useNavigate();
   const [obligation, setObligation] = useState("");
   const [approved, setApproved] = useState(false);
-  const [token, setToken] = useState();
+  const [token, setToken] = useState<ObligationBody | string>();
 
   useEffect(() => {
-    setToken(localStorage.getItem("token"));
-    getObligation(token).then((res) => setObligation(res));
+    const storedtoken = localStorage.getItem("token");
+    const parsedToken = storedtoken ? JSON.parse(storedtoken) : "";
+    setToken(parsedToken);
+    if (typeof token === "object") {
+      getObligation(token).then((res:{data: string}) => setObligation(res.data));
+    }
   }, []);
 
   const GreenCheckbox = withStyles({
@@ -32,10 +37,10 @@ export default function Obligation() {
       },
     },
     checked: {},
-  })((props) => <Checkbox color="default" {...props} />);
+  })((props: CheckboxProps) => <Checkbox color="default" {...props} />);
 
   const handleSubmit = async () => {
-    await saveObligation(token);
+    await saveObligation(token as ObligationBody);
     navigate("");
   };
 

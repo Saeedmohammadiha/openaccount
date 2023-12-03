@@ -9,7 +9,9 @@ import rtl from "jss-rtl";
 
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 
 root.render(
   <StylesProvider jss={jss}>

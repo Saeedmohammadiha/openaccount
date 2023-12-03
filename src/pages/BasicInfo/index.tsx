@@ -19,9 +19,9 @@ export default function BasicInfo() {
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm();
+  } = useForm<BasicInfoFormValues>();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: BasicInfoFormValues) => {
     const { mobileNumber, nationalId, cartSerial, accountType, birthdate } =
       data;
 
@@ -52,7 +52,6 @@ export default function BasicInfo() {
           <TextField
             fullWidth
             className={classes.input}
-            name="mobileNumber"
             variant="outlined"
             label={t("mobileNumber")}
             error={!!errors?.mobileNumber}
@@ -66,7 +65,6 @@ export default function BasicInfo() {
           <TextField
             fullWidth
             className={classes.input}
-            name="nationalId"
             variant="outlined"
             label={t("nationalId")}
             error={!!errors?.nationalId}
@@ -78,7 +76,6 @@ export default function BasicInfo() {
           <TextField
             fullWidth
             className={classes.input}
-            name="cartSerial"
             variant="outlined"
             label={t("cartSerial")}
             error={!!errors?.cartSerial}
@@ -90,7 +87,7 @@ export default function BasicInfo() {
           <Controller
             control={control}
             name="birthdate"
-            rules={{ required: "Birthdate is required" }}
+            rules={validate.birthdate}
             render={({ field, fieldState }) => {
               return (
                 <>
@@ -110,7 +107,7 @@ export default function BasicInfo() {
                     position="center"
                   />
                   {fieldState?.error && (
-                    <p class="MuiFormHelperText-root MuiFormHelperText-contained Mui-error">
+                    <p className="MuiFormHelperText-root MuiFormHelperText-contained Mui-error">
                       {t("dateErrorTxt")}
                     </p>
                   )}

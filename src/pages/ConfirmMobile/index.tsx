@@ -15,14 +15,17 @@ export default function ConfirmMobile() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const [userData, setUserData] = useState(null);
+  } = useForm<ConfirmMobileFormValues>();
+  const [userData, setUserData] = useState<CreateAuthRequestBody | null>();
 
   useEffect(() => {
-    setUserData(JSON.parse(localStorage.getItem("userData")));
+    const storedUserData = localStorage.getItem("userData");
+    const parsedUserData = storedUserData ? JSON.parse(storedUserData) : "";
+
+    setUserData(parsedUserData);
   }, []);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: ConfirmMobileFormValues) => {
     const { password } = data;
 
     const body = {
@@ -33,27 +36,26 @@ export default function ConfirmMobile() {
 
     try {
       const res = await VerificationOTP(body);
-      localStorage.setItem('token', JSON.stringify(res))
+      localStorage.setItem("token", JSON.stringify(res));
       navigate("/obligation");
     } catch (error) {
       console.log(error);
     }
   };
 
-  // Function to handle the countdown completion
   const handleCountdownComplete = () => {
     setIsCounting(false);
   };
 
   const handleSendAgain = async () => {
-    await createAuthRequest(userData);
+    await createAuthRequest(userData as CreateAuthRequestBody);
     setIsCounting(true);
   };
 
-  const countdownRenderer = ({ minutes, seconds, completed }) => {
+  const countdownRenderer = ({ minutes, seconds }: CountDownRendererArgs) => {
     return (
       <span>
-        0{minutes}:{seconds}
+        0{String(minutes)}:{String(seconds)}
       </span>
     );
   };
@@ -69,11 +71,10 @@ export default function ConfirmMobile() {
         <Grid item>
           <TextField
             fullWidth
-            name="password"
             variant="outlined"
             label={t("password")}
             error={!!errors?.password}
-            helperText={errors?.password ? errors?.password?.message : ""}
+            helperText={errors?.password ? errors.password.message as string : ""}
             {...register("password", validate.confirmMobile)}
           />
         </Grid>

@@ -2,23 +2,27 @@ import {
   Grid,
   MenuItem,
   TextField,
+  Theme,
   useMediaQuery,
   useTheme,
 } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import Sheet from "react-modal-sheet";
-//import { accountTypeList } from "../utils/accountTypeList";
+
 import { useTranslation } from "react-i18next";
 import { getAccountType } from "../endpoints";
 
-export default function AccountTypeSelect({ register, setValue }) {
+export default function AccountTypeSelect({
+  register,
+  setValue,
+}: AccountTypeSelectProps) {
   const [isOpen, setOpen] = useState(false);
   const [accountTypeValue, setAccountTypeValue] = useState("حساب قرض الحسنه");
-  const matches = useMediaQuery((theme) => theme.breakpoints.down("md"));
   const theme = useTheme();
+  const matches = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));
   const { t } = useTranslation();
 
-  const [accountList, setAccountList] = useState([]);
+  const [accountList, setAccountList] = useState<AccountType[] | null>();
 
   useEffect(() => {
     getAccountType().then((res) => setAccountList(res.data.data));

@@ -7,7 +7,7 @@ export const getAccountType = async () => {
   return res;
 };
 
-export const createAuthRequest = async (data) => {
+export const createAuthRequest = async (data: CreateAuthRequestBody) => {
   const res = await axiosInstance.post(
     "/api/BancsLink/CreateAuthRequest",
     data
@@ -15,17 +15,17 @@ export const createAuthRequest = async (data) => {
   return res;
 };
 
-export const VerificationOTP = async (data) => {
+export const VerificationOTP = async (data: VerificationOTPBody) => {
   const res = await axiosInstance.post("/api/BancsLink/VerificationOTP", data);
   return res;
 };
 
-export const getObligation = async (data) => {
+export const getObligation = async (data:ObligationBody) => {
   const res = await axiosInstance.post("/api/BancsLink/GetObligation", data);
   return res;
 };
 
-export const saveObligation = async (data) => {
+export const saveObligation = async (data:ObligationBody) => {
   const res = await axiosInstance.post("/api/BancsLink/SaveObligation", data);
   return res;
 };

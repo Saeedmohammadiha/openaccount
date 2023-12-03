@@ -2,7 +2,6 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
-
     input: {
       height: theme.spacing(7),
     },
@@ -13,10 +12,10 @@ const useStyles = makeStyles((theme) =>
       padding: " 10px",
       outline: " none",
       border: " 1px solid gray",
-      boxSizing: " border-box",
       borderRadius: " 5px",
       backgroundColor: theme.palette.background.default,
-      color: theme.palette.type === "dark" && theme.palette.common.white,
+      color:
+        theme.palette.type === "dark" ? theme.palette.common.white : 'gray',
     },
     datePickerError: {
       width: " 100%",
@@ -25,7 +24,6 @@ const useStyles = makeStyles((theme) =>
       padding: " 10px",
       outline: " none",
       border: " 1px solid red",
-      boxSizing: " border-box",
       borderRadius: " 5px",
       backgroundColor: theme.palette.background.default,
       "&::placeholder": {
